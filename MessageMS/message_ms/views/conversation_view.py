@@ -22,7 +22,7 @@ class ConversationList():
             
             # 'safe=False' for objects serialization
             if conversation_serializer.is_valid():
-                return JsonResponse(conversation_serializer.data,status=status.HTTP_201_CREATED, safe=False)
+                return JsonResponse(conversation_serializer.data,status=status.HTTP_201_CREATED, safe=True)
             else:
                 return JsonResponse(conversation_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         elif request.method == 'POST':
