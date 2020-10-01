@@ -18,7 +18,7 @@ class ConversationList():
             except Conversation.DoesNotExist: 
                 return JsonResponse({'message': 'The conversation does not exist'}, status=status.HTTP_404_NOT_FOUND) 
 
-            conversation_serializer = ConversationSerializer(data=conversations, many=True)
+            conversation_serializer = ConversationSerializer(data=conversations)
             
             # 'safe=False' for objects serialization
             if conversation_serializer.is_valid():
