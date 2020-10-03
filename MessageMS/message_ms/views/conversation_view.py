@@ -14,17 +14,16 @@ class ConversationList():
     def conversation_list(request,pk1):
         if request.method == 'GET':
             try: 
-                conversations = Conversation.objects.filter(usuario1Id=pk1,usuario2Id=pk1) 
+                conversations = Conversation.objects.filter(usuario1Id=pk1) 
             except Conversation.DoesNotExist: 
                 return JsonResponse({'message': 'The conversation does not exist'}, status=status.HTTP_404_NOT_FOUND) 
 
-            conversation_serializer = ConversationSerializer(data=conversations)
+            conversation_serializer = ConversationSerializer(conversations,many=True)
             
             # 'safe=False' for objects serialization
-            if conversation_serializer.is_valid():
-                return JsonResponse(conversation_serializer.data,status=status.HTTP_201_CREATED, safe=True)
-            else:
-                return JsonResponse(conversation_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            
+            return JsonResponse(conversation_serializer.data,status=status.HTTP_201_CREATED, safe=True)
+    
         elif request.method == 'POST':
             conversation_data = JSONParser().parse(request)
             conversation_serializer = ConversationSerializer(data=conversation_data)
