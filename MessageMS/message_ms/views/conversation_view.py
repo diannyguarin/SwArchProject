@@ -14,7 +14,7 @@ class ConversationList():
     def conversation_list(request,pk1):
         if request.method == 'GET':
             try: 
-                conversations = Conversation.objects.filter(usuario1Id=pk1,usuario2Id=pk1) 
+                conversations = Conversation.objects.filter(usuario1Id=pk1).filter(usuario2Id=pk1) 
             except Conversation.DoesNotExist: 
                 return JsonResponse({'message': 'The conversation does not exist'}, status=status.HTTP_404_NOT_FOUND) 
 
