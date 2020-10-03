@@ -8,13 +8,14 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework import mixins
 from rest_framework import generics
+from django.db.models import Q
 
 class ConversationList():
     @api_view(['GET', 'POST'])
     def conversation_list(request,pk1):
         if request.method == 'GET':
             try: 
-                conversations = Conversation.objects.filter(usuario1Id=pk1).filter(usuario2Id=pk1) 
+                conversations = Conversation.objects.filter(Q(usuario1Id=pk1) | Q(usuario2Id=pk1)) 
             except Conversation.DoesNotExist: 
                 return JsonResponse({'message': 'The conversation does not exist'}, status=status.HTTP_404_NOT_FOUND) 
 
