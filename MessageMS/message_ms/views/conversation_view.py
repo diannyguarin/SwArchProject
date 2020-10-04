@@ -60,6 +60,12 @@ class ConversationList():
             return JsonResponse(message_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
         elif request.method == 'DELETE':
-            conversation = Conversation.objects.get(pk=pk2)
+            conversation = Conversation.objects.get(Q(usuario1Id=pk1) | Q(usuario2Id=pk1),pk=pk2)
             conversation.delete() 
             return JsonResponse({'message': 'Conversation was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
+    @api_view(['DELETE'])
+    def messages_delete(request,pk1,pk2,pk3):
+        if request.method == 'GET':
+            message = Message.objects.get(conversationId=pk2,pk=pk3)
+            message.delete() 
+            return JsonResponse({'message': 'Message was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
