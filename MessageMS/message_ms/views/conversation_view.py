@@ -1,5 +1,8 @@
 from message_ms.models.conversation_model import Conversation
 from message_ms.serializers.conversation_serializer import ConversationSerializer
+from message_ms.models.message_model import Message
+from message_ms.serializers.message_serializer import MessageSerializer
+
 from django.shortcuts import render
 
 from django.http.response import JsonResponse
@@ -9,8 +12,12 @@ from rest_framework.decorators import api_view
 from rest_framework import mixins
 from rest_framework import generics
 from django.db.models import Q
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
 
 class ConversationList():
+
     @api_view(['GET', 'POST'])
     def conversation_list(request,pk1):
         if request.method == 'GET':
@@ -33,19 +40,18 @@ class ConversationList():
             return JsonResponse(conversation_serializer.data, status=status.HTTP_201_CREATED) 
         return JsonResponse(conversation_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class ConversationDetail(mixins.RetrieveModelMixin,
-                     mixins.UpdateModelMixin,
-                     mixins.DestroyModelMixin,
-                     generics.GenericAPIView):
-                     
-    queryset = Conversation.objects.all()
-    serializer_class = ConversationSerializer
 
-    def get(self, request, *args, **kwargs):
-        return self.retrieve(request, *args, **kwargs)
+    @api_view(['GET', 'POST', 'DELETE'])
+    def conversation_messages(request,pk1,pk2):
+        if request.method == 'GET':
+            try:
+            messages = Message.objects.filter(conversationId=pk2)
+            except Conversation.DoesNotExist: 
+                return JsonResponse({'message': 'The message does not exist'}, status=status.HTTP_404_NOT_FOUND)
+            message_serializer = MessageSerializer(messages,many=True)
+            return JsonResponse(message_serializer.data,status=status.HTTP_201_CREATED, safe=False)
+            
+        elif request.method == 'POST':
+        elif request.method == 'DELETE':
 
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
 
-    def delete(self, request, *args, **kwargs):
-        return self.destroy(request, *args, **kwargs)
