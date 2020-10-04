@@ -35,10 +35,10 @@ class ConversationList():
         elif request.method == 'POST':
             conversation_data = JSONParser().parse(request)
             conversation_serializer = ConversationSerializer(data=conversation_data)
-        if conversation_serializer.is_valid():
-            conversation_serializer.save()
-            return JsonResponse(conversation_serializer.data, status=status.HTTP_201_CREATED) 
-        return JsonResponse(conversation_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            if conversation_serializer.is_valid():
+                conversation_serializer.save()
+                return JsonResponse(conversation_serializer.data, status=status.HTTP_201_CREATED) 
+            return JsonResponse(conversation_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
     @api_view(['GET', 'POST', 'DELETE'])
@@ -50,8 +50,5 @@ class ConversationList():
                 return JsonResponse({'message': 'The message does not exist'}, status=status.HTTP_404_NOT_FOUND)
             message_serializer = MessageSerializer(messages,many=True)
             return JsonResponse(message_serializer.data,status=status.HTTP_201_CREATED, safe=False)
-
-        elif request.method == 'POST':
-        elif request.method == 'DELETE':
-
-
+        #elif request.method == 'POST':
+        #elif request.method == 'DELETE':
