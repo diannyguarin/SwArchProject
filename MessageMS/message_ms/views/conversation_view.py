@@ -63,9 +63,10 @@ class ConversationList():
             conversation = Conversation.objects.get(Q(usuario1Id=pk1) | Q(usuario2Id=pk1),pk=pk2)
             conversation.delete() 
             return JsonResponse({'message': 'Conversation was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
+
     @api_view(['DELETE'])
     def messages_delete(request,pk1,pk2,pk3):
-        if request.method == 'GET':
+        if request.method == 'DELETE':
             message = Message.objects.get(conversationId=pk2,pk=pk3)
             message.delete() 
             return JsonResponse({'message': 'Message was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
