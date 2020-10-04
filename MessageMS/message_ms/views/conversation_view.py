@@ -50,5 +50,12 @@ class ConversationList():
                 return JsonResponse({'message': 'The message does not exist'}, status=status.HTTP_404_NOT_FOUND)
             message_serializer = MessageSerializer(messages,many=True)
             return JsonResponse(message_serializer.data,status=status.HTTP_201_CREATED, safe=False)
-        #elif request.method == 'POST':
+            
+        elif request.method == 'POST':
+            message_data = JSONParser().parse(request)
+            message_serializer = MessageSerializer(data=message_data)
+            if message_serializer.is_valid():
+                message_serializer.save()
+                return JsonResponse(message_serializer.data, status=status.HTTP_201_CREATED) 
+            return JsonResponse(message_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         #elif request.method == 'DELETE':
