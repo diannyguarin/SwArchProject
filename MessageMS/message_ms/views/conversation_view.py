@@ -45,12 +45,12 @@ class ConversationList():
     def conversation_messages(request,pk1,pk2):
         if request.method == 'GET':
             try:
-            messages = Message.objects.filter(conversationId=pk2)
+                messages = Message.objects.filter(conversationId=pk2)
             except Conversation.DoesNotExist: 
                 return JsonResponse({'message': 'The message does not exist'}, status=status.HTTP_404_NOT_FOUND)
             message_serializer = MessageSerializer(messages,many=True)
             return JsonResponse(message_serializer.data,status=status.HTTP_201_CREATED, safe=False)
-            
+
         elif request.method == 'POST':
         elif request.method == 'DELETE':
 
