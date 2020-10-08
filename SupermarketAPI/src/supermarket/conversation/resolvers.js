@@ -1,24 +1,24 @@
 import { generalRequest, getRequest } from '../../utilities';
 import { url, port, entryPoint } from './server';
 
-const URL1 = `http://${url}:${port}/${entryPoint}`;
+const URL = `http://${url}:${port}/${entryPoint}`;
 
 const resolvers = {
 	Query: {
 		allConversations: (_, { idUs }) =>
-			getRequest(`${URL1}/${idUs}`, 'GET'),
+			getRequest(`${URL}/${idUs}`, 'GET'),
 		getMessagesbyConversation: (_, { idUs, idConv}) =>
-			generalRequest(`${URL1}/${idUs}/${idConv}`, 'GET')
+			generalRequest(`${URL}/${idUs}/${idConv}`, 'GET'),
 	},
 	Mutation: {
 		createConversation: (_, { idUs, conversation }) =>
-			generalRequest(`${URL1}/${idUs}`, 'POST', conversation),
+			generalRequest(`${URL}/${idUs}`, 'POST', conversation),
 		createMessage: (_, { idUs,idConv, message }) =>
-			generalRequest(`${URL1}/${idUs}/${idConv}`, 'POST', message),
+			generalRequest(`${URL}/${idUs}/${idConv}`, 'POST', message),
 		deleteConversation: (_, { idUs, idConv}) =>
-			generalRequest(`${URL1}/${idUs}/${idConv}`, 'DELETE'),
+			generalRequest(`${URL}/${idUs}/${idConv}`, 'DELETE'),
 		deleteMessage: (_, { idUs, idConv, idMsg}) =>
-			generalRequest(`${URL1}/${idUs}/${idConv}/${idMsg}`, 'DELETE')
+			generalRequest(`${URL}/${idUs}/${idConv}/${idMsg}`, 'DELETE')
 	}
 };
 
