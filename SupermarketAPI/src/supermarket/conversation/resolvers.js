@@ -8,7 +8,7 @@ const resolvers = {
 		allConversations: (_, { idUs }) =>
 			getRequest(`${URL1}/${idUs}`, 'GET'),
 		getMessagesbyConversation: (_, { idUs, idConv}) =>
-			generalRequest(`${URL1}/${idUs}/${idConv}`, 'GET'),
+			generalRequest(`${URL1}/${idUs}/${idConv}`, 'GET')
 	},
 	Mutation: {
 		createConversation: (_, { idUs, conversation }) =>
@@ -16,7 +16,7 @@ const resolvers = {
 		createMessage: (_, { idUs,idConv, message }) =>
 			generalRequest(`${URL1}/${idUs}/${idConv}`, 'POST', message),
 		deleteConversation: (_, { idUs, idConv}) =>
-			generalRequest(`${URL1}/${idUs}/${idConv}`, 'DELETE')
+			generalRequest(`${URL1}/${idUs}/${idConv}`, 'DELETE'),
 		deleteMessage: (_, { idUs, idConv, idMsg}) =>
 			generalRequest(`${URL1}/${idUs}/${idConv}/${idMsg}`, 'DELETE')
 	}
