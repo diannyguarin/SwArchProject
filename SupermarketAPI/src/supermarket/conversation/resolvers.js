@@ -6,9 +6,9 @@ const URL = `http://${url}:${port}/${entryPoint}`;
 const resolvers = {
 	Query: {
 		allConversations: (_, { idUs }) =>
-			getRequest("${URL}/${idUs}", 'GET'),
+			getRequest(`${URL}/${idUs}`, 'GET'),
 		getMessagesbyConversation: (_, { idUs, idConv}) =>
-			generalRequest("${URL}/${idUs}/${idConv}", 'GET'),
+			generalRequest(`${URL}/${idUs}/${idConv}`, 'GET'),
 	},
 	Mutation: {
 		createConversation: (_, { idUs, conversation }) =>
