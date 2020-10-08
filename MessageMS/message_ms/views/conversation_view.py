@@ -61,8 +61,8 @@ class ConversationList():
         
         elif request.method == 'DELETE':
             conversation = Conversation.objects.get(Q(usuario1Id=pk1) | Q(usuario2Id=pk1),pk=pk2)
-            if Conversation.DoesNotExist: 
-                return JsonResponse({'message': 'The conversation does not exist'}, status=status.HTTP_404_NOT_FOUND)
+            #if Conversation.DoesNotExist: 
+            #    return JsonResponse({'message': 'The conversation does not exist'}, status=status.HTTP_404_NOT_FOUND)
             conversation.delete() 
             return JsonResponse({'message': 'Conversation was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
 
