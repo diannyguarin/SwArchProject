@@ -14,13 +14,13 @@ export const messageTypeDef = `
       id: Int!
       conversationId: Int!
       text: String!
-      sendDate: Date!
+      sendDate: String!
       remitenteId: Int!
   }
   input MessageInput {
       conversationId: Int!
       text: String!
-      sendDate: Date!
+      sendDate: String!
       remitenteId: Int!
   }`;
 
