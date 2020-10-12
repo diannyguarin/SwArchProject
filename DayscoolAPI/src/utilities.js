@@ -1,5 +1,6 @@
 import request from 'request-promise-native';
 import { formatError } from 'graphql';
+const fetch = require('node-fetch') 
 
 /**
  * Creates a request following the given parameters
