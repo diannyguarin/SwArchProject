@@ -37,7 +37,7 @@ export const alumnosTypeDef = `
 //Objetos GET
 export const cursoQueries = `
     getCursoById(id: Int!): Curso!
-    etCursoStudentById(id:Int!): [Curso]!
+    getCursoStudentById(id:Int!): [Curso]!
 `;
 
 export const cursoMutations = `
