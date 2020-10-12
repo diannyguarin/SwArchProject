@@ -1,0 +1,16 @@
+    query{
+    getAllUsers{
+        name
+    }
+    }
+    mutation{
+    createUser{
+        username: "hola"
+        mail: "kolmant@mail.com",
+        birthDate: "2007-12-03T10:15:30",
+        career: "engineering",
+        role: "student",
+        name: "Nicolas",
+        password: "1234"
+    }
+    }

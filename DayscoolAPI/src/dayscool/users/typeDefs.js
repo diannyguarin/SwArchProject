@@ -1,0 +1,59 @@
+// Definir el objeto que van a usar y los campos necesarios para crearlo
+export const userTypeDef = `
+  type User {
+      id: Int!
+      username: String!
+      mail: String!
+      birthDate: String!
+      career: String!
+      role: String!
+      name: String!
+      password: String!
+  }
+  input UserInput {
+      username: String!
+      mail: String!
+      birthDate: String!
+      career: String!
+      role: String!
+      name: String!
+      password: String!
+  }`;
+
+//Definir las consultas del objeto (solo GET)
+export const userQueries = `
+  getAllUsers: [User]!
+  getUserById(id:Int!): User!
+  `;
+//Definir las mutaciones (POST PUT Y DELETE) 
+export const userMutations = `
+  createUser(user: UserInput!): User!
+  updateUser(id: Int!, user: UserInput!): User!
+  deleteUser(id: Int!): String!
+`;
+
+export const noteTypeDef = `
+  type Note {
+    id: Int!
+    noteContent: String!
+    idUser: Int!
+  }
+  input NoteInput {
+    noteContent: String!
+    idUser: Int!
+  }`;
+
+export const noteQueries = `
+  getAllNotesFromOwner(id: Int!): [Note!]
+  findNoteById(id:Int!): Note!
+  getSharedWithMe(id:Int!): [Note!]
+`;
+export const noteMutations = `
+  createNote(id: Int!, note: NoteInput!): Note!
+  updateNote(idO: Int!, idN: Int!, note: NoteInput!): Note!
+  deleteNote(idO: Int!, idN: Int!): Note! 
+`;
+
+
+
+
