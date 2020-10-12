@@ -1,4 +1,4 @@
-import { createMessage, generalRequest } from '../../utilities';
+import { generalRequest, getRequest } from '../../utilities';
 //Añadir la url correspondiente a su microservicio
 import { url, port, entryPoint } from './server';
 const URL = `http://${url}:${port}/${entryPoint}`;
@@ -8,7 +8,7 @@ const resolvers = {
 //Añadir las definiciones por url de las request
 	Query: {
 		allConversations: (_, { idUs }) =>
-			generalRequest(`${URL}/${idUs}`, 'GET'),
+			getRequest(`${URL}/${idUs}`, 'GET'),
 		getMessagesbyConversation: (_, { idUs, idConv}) =>
 			generalRequest(`${URL}/${idUs}/${idConv}`, 'GET'),
 	},
@@ -16,7 +16,7 @@ const resolvers = {
 		createConversation: (_, { idUs, category }) =>
 			generalRequest(`${URL}/${idUs}`, 'POST', conversation),
 		createMessage: (_, { idUs,idConv, message }) =>
-			createMessage(`${URL}/${idUs}/${idConv}`, 'POST', message),
+			generalRequest(`${URL}/${idUs}/${idConv}`, 'POST', message),
 		deleteConversation: (_, { idUs, idConv}) =>
 			generalRequest(`${URL}/${idUs}/${idConv}`, 'DELETE'),
 		deleteMessage: (_, { idUs, idConv, idMsg}) =>

@@ -1,40 +1,40 @@
 // Definir el objeto que van a usar y los campos necesarios para crearlo
 export const conversationTypeDef = `
   type Conversation {
-      id: Int!
-      usuario1Id: Int!
-      usuario2Id: Int!
+      id: Long!
+      usuario1Id: Long!
+      usuario2Id: Long!
   }
   input ConversationInput {
-      usuario1Id: Int!
-      usuario2Id: Int!
+      usuario1Id: Long!
+      usuario2Id: Long!
   }`;
 
 export const messageTypeDef = `
   type Message {
-      id: Int!
-      conversationId: Int!
+      id: Long!
+      conversationId: Long!
       text: String!
       sendDate: String!
-      remitenteId: Int!
+      remitenteId: Long!
   }
   input MessageInput {
-      conversationId: Int!
+      conversationId: Long!
       text: String!
       sendDate: String!
-      remitenteId: Int!
+      remitenteId: Long!
   }`;
 
 export const conversationQueries = `
-  allConversations(idUs:Int!): [Conversation]!
-  getMessagesbyConversation(idUs: Int!,idConv: Int!): [Message]!
+  allConversations(idUs:Long!): [Conversation]!
+  getMessagesbyConversation(idUs: Long!,idConv: Long!): [Message]!
 `;
 
 export const conversationMutations = `
-  createConversation(idUs: Int!,conversation: ConversationInput!): Conversation!
-  createMessage(idUs: Int!,idConv: Int!, message: MessageInput!): Message!
-  deleteConversation(idUs: Int!,idConv: Int!): Int
-  deleteMessage(idUs: Int!,idConv: Int!, isMsg: Int!): Int
+  createConversation(idUs: Long!,conversation: ConversationInput!): Conversation!
+  createMessage(idUs: Long!,idConv: Long!, message: MessageInput!): Message!
+  deleteConversation(idUs: Long!,idConv: Long!): Long
+  deleteMessage(idUs: Long!,idConv: Long!, isMsg: Long!): Long
 `;
 
 

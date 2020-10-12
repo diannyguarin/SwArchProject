@@ -13,9 +13,7 @@ export async function generalRequest(url, method, body, fullResponse) {
 	const parameters = {
 		method,
 		uri: encodeURI(url),
-		body,
-		json: true,
-		resolveWithFullResponse: fullResponse
+		body
 	};
 	if (process.env.SHOW_URLS) {
 		// eslint-disable-next-line
@@ -23,7 +21,19 @@ export async function generalRequest(url, method, body, fullResponse) {
 	}
 
 	try {
-		return await request(parameters);
+		return await fetch(url, parameters)
+			.then((response) => response.json())
+			.then((result) => callback(result))
+			.catch((error) => {
+				console.log(error);
+				callback({
+					ok: false,
+					msg: {
+						msg: "An error occurred while sending http request",
+						error,
+					},
+				});
+			});
 	} catch (err) {
 		return err;
 	}
@@ -87,16 +97,4 @@ export function formatErr(error) {
 		return { message, code, description, path };
 	}
 	return data;
-}
-
-
-export async function createMessage(url, method, body, fullResponse) {
-	//Crear mensaje y Guardar atributos del mensaje creado
-	message = generalRequest(url, method, body, fullResponse)
-	//Crear notificacion para el usuario receptor del mensaje
-	//NotificationInput
-	//notification = {
-	//}
-	//generalRequest(url, method, body, fullResponse)
-
 }
