@@ -1,6 +1,5 @@
 import request from 'request-promise-native';
 import { formatError } from 'graphql';
-const fetch = require('isomorphic-unfetch') 
 
 /**
  * Creates a request following the given parameters
