@@ -92,12 +92,11 @@ export function formatErr(error) {
 
 export async function createMessage(url, method, body, fullResponse) {
 	//Crear mensaje y Guardar atributos del mensaje creado
-	message = generalRequest(`${URL}/${idUs}/${idConv}`, 'POST', message)
+	message = generalRequest(url, method, body, fullResponse)
 	//Crear notificacion para el usuario receptor del mensaje
 	//NotificationInput
 	//notification = {
-
 	//}
-	generalRequest(`${URL}`, 'POST', notification)
+	//generalRequest(url, method, body, fullResponse)
 
 }

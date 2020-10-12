@@ -4,10 +4,11 @@
     "\\lib",
     "\\src",
     "\\src\\dayscool",
+    "\\src\\dayscool\\abac",
     "\\src\\dayscool\\messages",
     "\\src\\dayscool\\notification",
     "\\src\\dayscool\\users"
   ],
-  "SelectedNode": "\\package.json",
+  "SelectedNode": "\\src\\utilities.js",
   "PreviewInSolutionExplorer": false
 }
