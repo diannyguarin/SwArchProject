@@ -1,6 +1,6 @@
 import request from 'request-promise-native';
 import { formatError } from 'graphql';
-const fetch = require("node-fetch");
+
 /**
  * Creates a request following the given parameters
  * @param {string} url
@@ -13,7 +13,9 @@ export async function generalRequest(url, method, body, fullResponse) {
 	const parameters = {
 		method,
 		uri: encodeURI(url),
-		body
+		body,
+		json: true,
+		resolveWithFullResponse: fullResponse
 	};
 	if (process.env.SHOW_URLS) {
 		// eslint-disable-next-line
@@ -21,19 +23,7 @@ export async function generalRequest(url, method, body, fullResponse) {
 	}
 
 	try {
-		return await fetch(url, parameters)
-			.then((response) => response.json())
-			.then((result) => callback(result))
-			.catch((error) => {
-				console.log(error);
-				callback({
-					ok: false,
-					msg: {
-						msg: "An error occurred while sending http request",
-						error,
-					},
-				});
-			});
+		return await request(parameters);
 	} catch (err) {
 		return err;
 	}

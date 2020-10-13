@@ -1,0 +1,108 @@
+query{
+  getAllUsers{
+  	name
+    username
+  }
+}
+mutation{
+    createUser(user: {
+      	username: "hola2"
+        mail: "kolmant2@mail.com",
+        birthDate: "2007-12-03T10:15:30",
+        career: "engineering",
+        role: "student",
+        name: "Nicolas",
+        password: "1234"
+    }){
+  	  id  
+  }
+}
+
+query{
+  getUserById(id:2){
+  	name
+    username
+  }
+}
+
+mutation{
+  updateUser(id:1, user:{
+    username: "pepito15",
+    mail: "ozai17@mail.com",
+    birthDate: "1998-11-09",
+    career: "engineering",
+    role: "student",
+    name: "Pepito",
+    password: "1234"
+  }){
+  	name
+    username
+  }
+}
+
+mutation{
+  deleteUser(id:6)  
+}
+
+mutation{
+  createNote(id: 1, note:{
+    idNote:1
+    noteContent: "Nota de graphiql"
+    idUser:1
+  }){
+    id
+  }
+}
+
+
+mutation{
+  updateNote(idO: 1, idN: 1, note:{
+    noteContent: "Nota de graphiql"
+    idUser:1
+  }){
+    id
+  }
+}
+
+query{
+  getAllNotesFromOwner(id:1){
+    noteContent
+    id
+  }
+}
+
+mutation{
+  shareNote(id:1 ,noteAccess:{
+    idUser: 2
+    idNote: 1
+  }){
+		idNote
+  }  
+}
+
+query {
+  findNoteById(idO:1, idN: 1){
+    noteContent
+  }
+}
+
+query {
+  getSharedWithMe(id:2){
+    noteContent
+  }
+}
+
+mutation {
+  deleteNote(idO:1, idN:1){
+    id
+  }
+}
+
+mutation{
+  unshareNote(id:1 ,noteAccess:{
+    idUser: 2
+    idNote: 1
+  }){
+		idNote
+  }  
+}

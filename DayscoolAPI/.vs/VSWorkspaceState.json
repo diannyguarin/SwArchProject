@@ -2,7 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\dayscool"
+    "\\src\\dayscool",
+    "\\src\\dayscool\\messages"
   ],
   "SelectedNode": "\\src\\utilities.js",
   "PreviewInSolutionExplorer": false
