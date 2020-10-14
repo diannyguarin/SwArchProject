@@ -1,6 +1,7 @@
 // Definir el objeto que van a usar y los campos necesarios para crearlo
-import { GraphQLInt, GraphQLNonNull, GraphQLSchema } from 'graphql'
-const conversation = new GraphQLObjectType({ name: 'conversation', fields: { id: { type: new GraphQLNonNull(GraphQLInt) }, usuario1Id: { type: new GraphQLNonNull(GraphQLInt) }, usuario2Id: { type: new GraphQLNonNull(GraphQLInt) }, }, })
+//const graphql = require('graphql');
+//import { GraphQLInt, GraphQLNonNull, GraphQLSchema } from 'graphql'
+//const conversation = new GraphQLObjectType({ name: 'conversation', fields: { id: { type: new GraphQLNonNull(GraphQLInt) }, usuario1Id: { type: new GraphQLNonNull(GraphQLInt) }, usuario2Id: { type: new GraphQLNonNull(GraphQLInt) }, }, })
 export const conversationTypeDef = `
   type Conversation {
       id: Int!
@@ -15,7 +16,7 @@ export const conversationTypeDef = `
 export const messageTypeDef = `
   type Message {
       id: Int!
-      conversationId: GraphQLNonNull(${conversation})!
+      conversationId: Int!
       text: String!
       sendDate: String!
       remitenteId: Int!
