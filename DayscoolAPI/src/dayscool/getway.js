@@ -464,8 +464,12 @@ document.getElementById("deleteUser").onclick = function(){
 
 
 // Pruebas message
-document.getElementById("createMessage").onclick = function(){createMessage(2,12,"Hola 12")};
-
+document.getElementById("allConversations").onclick = function () { allConversations(555) };
+document.getElementById("getMessagesbyConversation").onclick = function () { getMessagesbyConversation(555, 11) };
+document.getElementById("createConversation").onclick = function () { createConversation(555,2)};
+document.getElementById("createMessage").onclick = function () { createMessage(2, 16, "Hola 555") };
+document.getElementById("deleteConversation").onclick = function () { deleteConversation(555, 16) };
+document.getElementById("deleteMessage").onclick = function () { deleteMessage(1, 5, 40) };
 //pruebas notification
 document.getElementById("getAllNotifications").onclick = function(){getAllNotifications(1)};
 document.getElementById("getNotification").onclick = function(){getNotification(1,"5f83c608f7a2ac0019847eb0")};
