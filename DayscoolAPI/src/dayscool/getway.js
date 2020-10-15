@@ -184,14 +184,83 @@ function deleteUser(id){
 
 //_______________Message______________________
 
-async function createMessage(idUs,idConv,text){
+async function allConversations(idUs) {
+    var conversations;
+    //QUERY obtener todas las conversacines de un usuario con parametros
+    var query =
+        ` query {
+                allConversations(idUs: ${idUs}){
+                id
+                usuario1Id
+                usuario2Id
+                }
+         }`;
+    //Hacer la peticion a GraphQL
+    await fetch(url_message, { method: 'POST', headers: { "Content-Type": "application/json" }, body: JSON.stringify({ query }) })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data.data.allConversations);
+            conversations = data.data.allConversations;
+        });
+    return conversations;
+
+}
+
+async function getMessagesbyConversation(idUs, idConv) {
+    var messages;
+    //QUERY obtener los mensajes de una conversacion
+    var query =
+        `query {
+                getMessagesbyConversation(idUs: ${idUs},idConv: ${idConv}){
+                id
+                text
+                sendDate
+                remitenteId
+                }
+         }`;
+    //Hacer la peticion a GraphQL
+    await fetch(url_message, { method: 'POST', headers: { "Content-Type": "application/json" }, body: JSON.stringify({ query }) })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data.data.getMessagesbyConversation);
+            messages = data.data.getMessagesbyConversation;
+        });
+    return messages;
+}
+
+async function createConversation(idUsRemitente, idUsDestinatario, ) {
+    var conversation;
+    //QUERY Crear una conversacion con parametros
+    var query =
+        ` mutation {
+                createConversation(idUs: ${idUsRemitente}, conversation:{
+                    usuario1Id: ${idUsRemitente},
+                    usuario2Id: ${idUsDestinatario}
+                }){
+                    id
+                    usuario1Id
+                    usuario2Id
+                } 
+                }`;
+    //Hacer la peticion a GraphQL
+    await fetch(url_message, { method: 'POST', headers: { "Content-Type": "application/json" }, body: JSON.stringify({ query }) })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data.data.createConversation);
+            conversation = data.data.createConversation;
+        });
+    return conversation;
+}
+
+async function createMessage(idUs, idConv, text) {
     //Variable para guardar el destinatario
+    var message;
     var idDestinatario;
     //Fecha actual para creación de mensaje y notificación
     var today = new Date();
-    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
     //QUERY Crear un mensaje con parametros
-    var query = 
+    var query =
         ` mutation {
             createMessage(idUs: ${idUs},idConv: ${idConv}, message:{
                 conversationId:${idConv},
@@ -199,40 +268,46 @@ async function createMessage(idUs,idConv,text){
                 sendDate:"${date}"
                 remitenteId:${idUs}
             }){
+            id
             text
+            sendDate
+            remitenteId
             }
             }`;
     //Hacer la peticion a GraphQL
-    await fetch(url_message, {method: 'POST',  headers:  { "Content-Type": "application/json"}, body:JSON.stringify({query})})
-    .then(res => res.json())
-    .then(data =>{console.log(data.data)});
-    
+    await fetch(url_message, { method: 'POST', headers: { "Content-Type": "application/json" }, body: JSON.stringify({ query }) })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data.data.createMessage);
+            message = data.data.createMessage;
+        });
+
     //QUERY para obtener conversaciones de usuario
-    var query =`query {
+    var query = `query {
                     allConversations(idUs: ${idUs}){
                         id
                         usuario1Id
                         usuario2Id
                         } 
                     }`;
-   //Hacer la peticion a GraphQL
-    idDestinatario = await fetch(url_message, {method: 'POST', headers:  { "Content-Type": "application/json"}, body:JSON.stringify({query})})
-    .then(res => res.json())
-    .then(data =>{
-        //Filtrar la respuesta a la conversación del mensaje que se creo
-        let newArray = data.data.allConversations.filter(conversation => conversation.id === idConv );
-        //Obtener el destinatario segun el ususario emisor del mensaje
-        if (newArray[0].usuario1Id === idUs ){
-            idDestinatario = newArray[0].usuario2Id;
-        }else{
-            idDestinatario = newArray[0].usuario1Id;
-        }
-        return idDestinatario
-    });
-    
+    //Hacer la peticion a GraphQL
+    idDestinatario = await fetch(url_message, { method: 'POST', headers: { "Content-Type": "application/json" }, body: JSON.stringify({ query }) })
+        .then(res => res.json())
+        .then(data => {
+            //Filtrar la respuesta a la conversación del mensaje que se creo
+            let newArray = data.data.allConversations.filter(conversation => conversation.id === idConv);
+            //Obtener el destinatario segun el ususario emisor del mensaje
+            if (newArray[0].usuario1Id === idUs) {
+                idDestinatario = newArray[0].usuario2Id;
+            } else {
+                idDestinatario = newArray[0].usuario1Id;
+            }
+            return idDestinatario
+        });
+
     console.log(idDestinatario);
     //QUERY Crear un mensaje con parametros
-    var query =`mutation {
+    var query = `mutation {
                 createNotification(notification: {
                     userId: ${idDestinatario},
                     conversationId: ${idConv},
@@ -246,11 +321,42 @@ async function createMessage(idUs,idConv,text){
                     }
                     }`;
     //Crear la notificación
-    await fetch(url_notification, {method: 'POST',  headers:  { "Content-Type": "application/json"}, body:JSON.stringify({query})})
-    .then(res => res.json())
-    .then(data =>{console.log(data.data)});
-    
+    await fetch(url_notification, { method: 'POST', headers: { "Content-Type": "application/json" }, body: JSON.stringify({ query }) })
+        .then(res => res.json())
+        .then(data => { console.log(data.data) });
+    return message;
 }
+
+async function deleteConversation(idUs, idConv) {
+    
+    //QUERY Crear un mensaje con parametros
+    var query =
+        ` mutation {
+            deleteConversation(idUs: ${idUs},idConv: ${idConv})
+   
+        }`;
+    //Hacer la peticion a GraphQL
+    await fetch(url_message, { method: 'POST', headers: { "Content-Type": "application/json" }, body: JSON.stringify({ query }) })
+        .then(res => res.json())
+        .then(data => {console.log(data.data)});
+
+}
+
+async function deleteMessage(idUs, idConv, idMsg) {
+    
+    //QUERY Crear un mensaje con parametros
+    var query =
+        ` mutation {
+                deleteMessage(idUs: ${idUs},idConv: ${idConv}, idMsg: ${idMsg})
+        }`;
+    //Hacer la peticion a GraphQL
+    await fetch(url_message, { method: 'POST', headers: { "Content-Type": "application/json" }, body: JSON.stringify({ query }) })
+        .then(res => res.json())
+        .then(data => { console.log(data.data) });
+
+}
+
+
 
 //_______________Notification______________________
 
