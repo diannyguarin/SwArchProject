@@ -13,7 +13,7 @@ const resolvers = {
 			generalRequest(`${URL}/${idUs}/${idConv}`, 'GET'),
 	},
 	Mutation: {
-		createConversation: (_, { idUs, category }) =>
+		createConversation: (_, { idUs, conversation }) =>
 			generalRequest(`${URL}/${idUs}`, 'POST', conversation),
 		createMessage: (_, { idUs,idConv, message }) =>
 			generalRequest(`${URL}/${idUs}/${idConv}`, 'POST', message),
