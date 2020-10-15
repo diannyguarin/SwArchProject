@@ -13,7 +13,7 @@ export const conversationTypeDef = `
 export const messageTypeDef = `
   type Message {
       id: Int!
-      conversationId: GraphQLNonNull(${conversation})!
+      conversationId: Int!
       text: String!
       sendDate: String!
       remitenteId: Int!
