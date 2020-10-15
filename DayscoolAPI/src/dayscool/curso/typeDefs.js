@@ -2,11 +2,11 @@ export const cursoTypeDef = `
     type Curso {
         Id: Int!
         nombre: String!
-        duenoId: Int!
+        duenoid: Int!
     }
     input CursoInput {
         nombre: String!
-        duenoId: Int!
+        duenoid: Int!
     }
 `;
 
@@ -36,8 +36,9 @@ export const alumnosTypeDef = `
 
 //Objetos GET
 export const cursoQueries = `
-    getCursoById(id: Int!): Curso!
+    getCursoById(id: Int!): [Curso]!
     getCursoStudentById(id:Int!): [Curso]!
+    getReunionsByStudentId(id: Int!): [Reunion]!
 `;
 
 export const cursoMutations = `

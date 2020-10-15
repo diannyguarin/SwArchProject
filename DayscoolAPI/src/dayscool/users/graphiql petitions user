@@ -2,6 +2,7 @@ query{
   getAllUsers{
   	name
     username
+    id
   }
 }
 mutation{
@@ -25,6 +26,19 @@ query{
   }
 }
 
+query{
+  getUserByMail(mail: "kolmant3@mail.com"){
+  	name
+    username
+  }
+}
+query{
+  getUserByUsername(username: "hola3"){
+    name
+    username
+  }
+}
+
 mutation{
   updateUser(id:1, user:{
     username: "pepito15",
@@ -44,65 +58,3 @@ mutation{
   deleteUser(id:6)  
 }
 
-mutation{
-  createNote(id: 1, note:{
-    idNote:1
-    noteContent: "Nota de graphiql"
-    idUser:1
-  }){
-    id
-  }
-}
-
-
-mutation{
-  updateNote(idO: 1, idN: 1, note:{
-    noteContent: "Nota de graphiql"
-    idUser:1
-  }){
-    id
-  }
-}
-
-query{
-  getAllNotesFromOwner(id:1){
-    noteContent
-    id
-  }
-}
-
-mutation{
-  shareNote(id:1 ,noteAccess:{
-    idUser: 2
-    idNote: 1
-  }){
-		idNote
-  }  
-}
-
-query {
-  findNoteById(idO:1, idN: 1){
-    noteContent
-  }
-}
-
-query {
-  getSharedWithMe(id:2){
-    noteContent
-  }
-}
-
-mutation {
-  deleteNote(idO:1, idN:1){
-    id
-  }
-}
-
-mutation{
-  unshareNote(id:1 ,noteAccess:{
-    idUser: 2
-    idNote: 1
-  }){
-		idNote
-  }  
-}

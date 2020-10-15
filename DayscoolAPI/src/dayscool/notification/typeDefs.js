@@ -13,6 +13,9 @@ export const notificationTypeDef = `
       date: String
       message: String!
       senderId: Int!
+  }
+  type Response{
+      message: String
   }`;
 
 export const notificationQueries = `
@@ -22,6 +25,6 @@ export const notificationQueries = `
 
 export const notificationMutations = `
     createNotification(notification: NotificationInput!): Notification!
-    deleteNotification(userId: Int!, notId: String!): Notification
-    deleteAllNotifications(id: Int!): Notification
+    deleteNotification(userId: Int!, notId: String!): Response
+    deleteAllNotifications(id: Int!): Response
 `;

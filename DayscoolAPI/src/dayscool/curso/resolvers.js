@@ -9,6 +9,8 @@ const resolvers = {
             generalRequest(`${URL}/${id}`, 'GET'),
         getCursoStudentById: (_, {id}) =>
             generalRequest(`${URL}/alumnos/${id}`, 'GET'),
+        getReunionsByStudentId: (_, {id}) =>
+            generalRequest(`${URL}/reunion/student/${id}`, 'GET')
     },
     Mutation: {
         createCurso: (_, {curso}) =>

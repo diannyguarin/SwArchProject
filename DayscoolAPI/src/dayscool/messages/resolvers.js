@@ -8,7 +8,7 @@ const resolvers = {
 //Añadir las definiciones por url de las request
 	Query: {
 		allConversations: (_, { idUs }) =>
-			generalRequest(`${URL}/${idUs}`, 'GET'),
+			getRequest(`${URL}/${idUs}`, 'GET'),
 		getMessagesbyConversation: (_, { idUs, idConv}) =>
 			generalRequest(`${URL}/${idUs}/${idConv}`, 'GET'),
 	},
@@ -25,4 +25,3 @@ const resolvers = {
 };
 
 export default resolvers;
-7
