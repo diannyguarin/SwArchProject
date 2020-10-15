@@ -34,7 +34,7 @@ export const conversationMutations = `
   createConversation(idUs: Int!,conversation: ConversationInput!): Conversation!
   createMessage(idUs: Int!,idConv: Int!, message: MessageInput!): Message!
   deleteConversation(idUs: Int!,idConv: Int!): Int
-  deleteMessage(idUs: Int!,idConv: Int!, isMsg: Int!): Int
+  deleteMessage(idUs: Int!,idConv: Int!, idMsg: Int!): Int
 `;
 
 
