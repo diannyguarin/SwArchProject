@@ -1,5 +1,5 @@
 const url = "http://localhost:5000/graphql";
-const url_message = "http://ec2-18-206-238-199.compute-1.amazonaws.com:5000/graphql";
+const url_message = "http://ec2-3-235-176-222.compute-1.amazonaws.com:5000/graphql";
 const url_notification = "http://ec2-3-236-86-171.compute-1.amazonaws.com:5000/graphql";
 
 var opts = {
