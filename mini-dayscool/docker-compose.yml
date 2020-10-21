@@ -1,0 +1,52 @@
+version: "3.5"
+services:
+  # web_front:
+  #   container_name: web_front
+  #   build: ./front-end/dayscool-web/
+  #   ports:
+  #     - "8080:8080"
+  #   mem_limit: 200m
+
+  api_getway:
+    container_name: api_getway
+    build: ./api_getway/DayscoolAPI
+    ports:
+      - "5000:5000"
+    mem_limit: 200m
+  ms_user_db:
+    container_name: ms_user_db
+    image: "mysql:latest"
+    restart: always
+    security_opt:
+      - seccomp:unconfined
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./front-end/ms_user/ms_user_generator:/docker-entrypoint-initdb.d/
+    environment:
+      MYSQL_DATABASE: ms_user_db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 153486
+      MYSQL_ROOT_PASSWORD: 153486
+      MYSQL_ROOT_HOST: "%"
+    mem_limit: 200m
+
+  ms_user:
+    container_name: ms_user
+    build: ./back-end/ms_user/
+    command:
+      ["./wait-for-it.sh", "ms_user_db:3306", "--command", "echo 'dbready'"]
+    depends_on:
+      - ms_user_db
+    ports:
+      - "8081:8081"
+    mem_limit: 200m
+  ms_cursos:
+    container_name: ms_cursos
+    build: ./back-end/ms_cursos
+    mem_limit: 200m
+
+networks:
+  default:
+    external: true
+    name: dayscool
